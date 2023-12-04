@@ -1,0 +1,94 @@
+data_cfg:
+  dataset_name: GREW
+  dataset_root: path/to/GREW-pkl
+  dataset_partition: ./datasets/GREW/GREW.json
+  num_workers: 16
+  remove_no_gallery: false # Remove probe if no gallery for it
+  test_dataset_name: GREW
+
+evaluator_cfg:
+  enable_float16: false
+  restore_ckpt_strict: true
+  restore_hint: 250000
+  save_name: GaitPart
+  eval_func: evaluate_real_scene #GREW_submission # identification_real_scene # identification_GREW_submission
+  sampler:
+    batch_size: 4
+    sample_type: all_ordered
+    type: InferenceSampler
+  metric: euc # cos
+  transform:
+    - img_w: 64
+      occlude_bounds: [0.2, 0.5]
+      type: RandomOccludeTransform  
+
+loss_cfg:
+  loss_term_weight: 1.0
+  margin: 0.2
+  type: TripletLoss
+  log_prefix: triplet
+
+model_cfg:
+  model: GaitPart_occ_aware
+  backbone_cfg:
+    in_channels: 1
+    layers_cfg:
+      - BC-32
+      - BC-32
+      - M
+      - BC-64
+      - BC-64
+      - M
+      - FC-128-3
+      - FC-128-3
+      - FC-256-3
+      - FC-256-3
+    type: Plain
+  SeparateFCs:
+    in_channels: 256
+    out_channels: 256
+    parts_num: 16
+  bin_num:
+    - 16
+  occ_detector_path: /path/to/occ_detector.pth
+  occ_dim: 64
+
+optimizer_cfg:
+  lr: 0.0001
+  momentum: 0.9
+  solver: Adam
+  weight_decay: 0.0
+
+scheduler_cfg:
+  gamma: 0.1
+  milestones:
+    - 150000
+  scheduler: MultiStepLR
+
+trainer_cfg:
+  enable_float16: true
+  fix_BN: false
+  log_iter: 1000
+  wandb: false
+  with_test: true
+  restore_ckpt_strict: true
+  restore_hint: 0
+  save_iter: 10000
+  save_name: GaitPart_occ_aware
+  sync_BN: false
+  total_iter: 250000
+  sampler:
+    batch_shuffle: true
+    batch_size:
+      - 32
+      - 4
+    frames_num_fixed: 30
+    frames_num_max: 50
+    frames_num_min: 25
+    frames_skip_num: 10
+    sample_type: fixed_ordered
+    type: TripletSampler
+  transform:
+    - img_w: 64
+      occlude_bounds: [0.2, 0.5]
+      type: RandomOccludeTransform  
