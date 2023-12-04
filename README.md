@@ -4,7 +4,7 @@
 
 ## You Can Run but not Hide:  Improving Gait Recognition with Intrinsic Occlusion Type Awareness
 
-This paper has been accepted as a WACV 2024 Oral paper.
+This [paper](https://github.com/Ayush-00/occ-aware-gait/blob/main/main_paper.pdf) has been accepted as a WACV 2024 Oral paper.
 
 Our code is built on top of the OpenGait framework. Please follow the setup instructions of the framework to run our models.
 
