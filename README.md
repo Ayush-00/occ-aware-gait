@@ -12,9 +12,11 @@ The gaitgl_GREW_occ_aware.yaml and gaitpart_GREW_occ_aware.yaml config files con
 
 Project website: [link](https://ayush-00.github.io/occ-aware-website/)
 
+### BibTeX Citation
+
 If you find this work helpful in your research, please cite it using the following: 
 
-`
+```
 @InProceedings{Gupta_2024_WACV,
     author    = {Gupta, Ayush and Chellappa, Rama},
     title     = {You Can Run but Not Hide: Improving Gait Recognition With Intrinsic Occlusion Type Awareness},
@@ -23,7 +25,7 @@ If you find this work helpful in your research, please cite it using the followi
     year      = {2024},
     pages     = {5893-5902}
 }
-`
+```
 
 
 
